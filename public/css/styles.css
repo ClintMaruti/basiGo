@@ -118,7 +118,8 @@ label{
     font-size: 16px;
     font-weight: 500;
 }
-input[type="text"]{
+
+input[type="password"], input[type="email"], input[type="text"]{
     display: block;
     height: 50px;
     width: 100%;
@@ -129,7 +130,6 @@ input[type="text"]{
     font-size: 14px;
     font-weight: 300;
 }
-
 form .radio > div {
     display: flex;
     width: 30%;
@@ -185,4 +185,9 @@ button{
 }
 .social i{
   margin-right: 4px;
+}
+
+.message-logs {
+    color: rgb(239, 238, 238);
+    margin: 0 auto;
 }
