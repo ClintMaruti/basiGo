@@ -1,5 +1,6 @@
 const express = require("express");
 const server = express();
+const path = require("path");
 
 const PORT = process.env.PORT || 4000;
 
@@ -9,6 +10,7 @@ server.get("/", (req, res) => {
     res.render("index");
 });
 
+server.set("views", path.join(__dirname, "views"));
 server.set("view engine", "ejs");
 
 server.get("/users/login", (req, res) => {
