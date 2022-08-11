@@ -32,22 +32,29 @@ server.use(session({ secret: "BASIGO", resave: false, saveUninitialized: false }
 server.use(flash());
 
 server.get("/", (req, res) => {
-    res.render("index");
+    res.redirect("/users/login");
 });
 
 server.set("views", path.join(__dirname, "views"));
 server.set("view engine", "ejs");
 
-server.get("/users/login", (req, res) => {
+server.get("/users/login", checkAuthenticated, (req, res) => {
     res.render("login-page");
 });
 
-server.get("/users/signup", (req, res) => {
-    res.render("signup");
+server.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
+    res.render("dashboard", { user: req.user.user_name });
 });
 
-server.get("/users/dashboard", (req, res) => {
-    res.render("dashboard", { user: req.user.user_name });
+// logout
+server.get("/users/logout", (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return err;
+        }
+        res.redirect("/");
+    });
+    req.flash("success_msg", "You have logged out");
 });
 
 server.post(
@@ -92,10 +99,19 @@ server.post(
     }
 );
 
-server.post("/", (req, res) => {
-    let { user_email, password } = req.body;
-    console.log(user_email, password);
-});
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect("/users/dashboard");
+    }
+    next();
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/users/login");
+}
 
 server.listen(PORT, () => {
     console.debug(`⚡️[server]: Server is running at http://localhost:${PORT}`);
