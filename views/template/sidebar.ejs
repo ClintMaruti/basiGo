@@ -1,18 +1,21 @@
 <aside>
     <nav>
         <ul>
-            <a href="/users/leads">
-                <li>Leads</li>
+            <% if (isAdmin) { %>
+            <a href="/users/dashboard/add-customer">
+                <li>Add Customer</li>
             </a>
-            <a href="/users/customers">
-                <li>customers</li>
-            </a>
-            <a href="/users/view-all">
-                <li>view all</li>
-            </a>
-            <a href="/users/logout">
+            <a href="/users/dashboard/logout">
                 <li>Logout</li>
             </a>
+            <% } %> <% if (!isAdmin) { %>
+            <a href="/users/dashboard/add-lead">
+                <li>Add Leads</li>
+            </a>
+            <a href="/users/dashboard/logout">
+                <li>Logout</li>
+            </a>
+            <% } %>
         </ul>
     </nav>
 </aside>

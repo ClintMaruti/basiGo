@@ -1,0 +1,33 @@
+<%- include('./template/nav'), { isAdmin: isAdmin} -%> <%- include('./template/sidebar') -%>
+<section class="dashboard-card">
+    <form action="/users/dashboard/add-lead" method="post">
+        <h3>Add Leads</h3>
+        <h2>Hello <%= user.charAt(0).toUpperCase() + user.slice(1) %></h2>
+        <label for="names">Names</label>
+        <input type="text" name="fName" placeholder="First Name" id="firstname" required />
+        <input type="text" name="sName" placeholder="Second Name" id="secondname" required />
+
+        <label for="phone">Phone Number</label>
+        <input type="text" name="phone" placeholder="Phone Number" id="phonenumber" required />
+
+        <label for="location">Location</label>
+        <input type="text" name="location" placeholder="Location" id="location" required />
+
+        <label for="gender">Gender</label>
+        <div class="dropdown-menu">
+            <select name="gender" id="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <!-- <label for="date">Date</label>
+        <input type="datetime-local" name="created_date" id="date" /> -->
+
+        <label for="created_by">Created By</label>
+        <input type="text" name="created_by" placeholder="<%= user%>" id="created_by" />
+
+        <button>Submit</button>
+    </form>
+</section>
+</body>
+</html>

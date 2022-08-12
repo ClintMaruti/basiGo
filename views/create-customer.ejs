@@ -1,0 +1,38 @@
+<%- include('./template/nav'), { isAdmin: isAdmin} -%> <%- include('./template/sidebar') -%>
+<section class="dashboard-card">
+    <form action="/users/dashboard/add-customer" method="post">
+        <h3>Add Customer</h3>
+        <h2>Hello <%= user.charAt(0).toUpperCase() + user.slice(1) %></h2>
+        <label for="names">Names</label>
+        <input type="text" name="fName" value="<%= lead.firstname %>" id="firstname" />
+        <input type="text" name="sName" value="<%= lead.secondname %>" id="secondname" />
+
+        <label for="phone">Phone Number</label>
+        <input type="text" name="phone" value="<%= lead.phonenumber %>" id="phonenumber" />
+
+        <label for="location">Location</label>
+        <input type="text" name="location" value="<%= lead.location %>" id="location" />
+
+        <label for="gender">Gender</label>
+        <input type="text" name="gender" value="<%= lead.gender %>" id="gender" />
+
+        <label for="photo">Photo</label>
+        <input type="file" name="photo" placeholder="Upload Photo" id="created_by" />
+
+        <label for="earnings">Annual Earnings</label>
+        <input type="text" name="earnings" placeholder="Annual Earnings" id="earnings" />
+
+        <div class="dropdown-menu">
+            <h3>Products of Interest</h3>
+            <select name="product" id="product">
+                <option value="product_a">Products A -> 10,000</option>
+                <option value="product_b">Products B -> 20,000</option>
+                <option value="product_c">Products C -> 30,000</option>
+            </select>
+        </div>
+        <label for="products">Created By</label>
+        <input type="text" name="created_by" placeholder="<%= user%>" id="created_by" />
+
+        <button>Submit</button>
+    </form>
+</section>

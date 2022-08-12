@@ -1,0 +1,55 @@
+<%- include('./template/nav'), { isAdmin: isAdmin} -%> <%- include('./template/sidebar') -%>
+<section class="dashboard-card">
+    <form>
+        <h3>Create Customer</h3>
+        <h5 class="heading">Leads</h5>
+        <div class="leads">
+            <ul>
+                <!-- Heading -->
+                <li class="leads-heading">
+                    <div>
+                        <h5>First Name</h5>
+                    </div>
+                    <div>
+                        <h5>Second Name</h5>
+                    </div>
+                    <div>
+                        <h5>Phone No.</h5>
+                    </div>
+                    <div>
+                        <h5>Date</h5>
+                    </div>
+                    <div>
+                        <h5>Created By</h5>
+                    </div>
+                </li>
+                <!-- Data -->
+                <ul>
+                    <% leads.forEach(function(leads) { %>
+                        <a href="/users/dashboard/add-customer/<%= leads.id %>" >
+                        <li class="leads-data">
+                            <div>
+                                <p><%= leads.firstname %></p>
+                            </div>
+                            <div>
+                                <p><%= leads.secondname %></p>
+                            </div>
+                            <div>
+                                <p><%= leads.phonenumber %></p>
+                            </div>
+                            <div>
+                                <p><%= new Date(leads.date).toDateString() %></p>
+                            </div>
+                            <div>
+                                <p><%= leads.createdby %></p>
+                            </div>
+                        </li>
+                    </a>
+                    <% }); %> 
+                   </ul>
+            </ul>
+        </div>
+    </form>
+</section>
+</body>
+</html>

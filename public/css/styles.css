@@ -144,7 +144,21 @@ form .radio > div label {
     font-weight: 500;
 }
 
-form .radio h3 {
+
+form .dropdown-menu {
+    margin-top: 10px;
+    width: 200px;
+}
+
+form .dropdown-menu select {
+    margin-top: 10px;
+    width: 200px;
+    color: black;
+    height: 50px;
+    padding: 0 0 0 .5em;
+}
+
+form .dropdown-menu h3 {
     font-size: 1em;
     text-align: left;
     text-decoration: underline;

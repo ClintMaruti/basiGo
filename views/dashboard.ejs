@@ -1,1 +1,1 @@
-<%- include('./template/nav') -%> <%- include('./template/sidebar') -%> <%- include('./template/create-customer') -%>
+<%- include('./template/nav'), { isAdmin: isadmin} -%> <%- include('./template/add-lead'), {user: user}-%>
