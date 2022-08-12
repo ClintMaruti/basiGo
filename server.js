@@ -3,7 +3,6 @@ const server = express();
 const path = require("path");
 const { pool } = require("./db/config");
 require("dotenv").config();
-const bcrypt = require("bcrypt");
 const session = require("express-session");
 const flash = require("express-flash");
 const passport = require("passport");
@@ -12,8 +11,8 @@ const initializePassport = require("./passport-config");
 initializePassport(passport);
 const PORT = process.env.PORT || 4000;
 
+// Middlewares
 server.use(express.static("public"));
-
 server.use(
     session({
         // Key we want to keep secret which will encrypt all of our information
@@ -26,22 +25,39 @@ server.use(
 );
 server.use(passport.session());
 server.use(passport.initialize());
-
 server.use(express.urlencoded({ extended: false }));
 server.use(session({ secret: "BASIGO", resave: false, saveUninitialized: false }));
 server.use(flash());
 
-server.get("/", (req, res) => {
-    res.redirect("/users/login");
-});
-
 server.set("views", path.join(__dirname, "views"));
 server.set("view engine", "ejs");
 
+// Utility functions
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect("/users/dashboard");
+    }
+    next();
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/users/login");
+}
+
+/**
+ * Get Routes
+ */
+// GET /index
+server.get("/", (req, res) => {
+    res.redirect("/users/login");
+});
+// GET /login
 server.get("/users/login", checkAuthenticated, (req, res) => {
     res.render("login-page");
 });
-
 // GET /dashboard
 server.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
     // Fetch all leads and customers from the database if a lead is in the customer table
@@ -68,7 +84,6 @@ server.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
         }
     });
 });
-
 // GET /logout
 server.get("/users/dashboard/logout", (req, res) => {
     req.logout((err) => {
@@ -79,12 +94,10 @@ server.get("/users/dashboard/logout", (req, res) => {
     });
     req.flash("success_msg", "You have logged out");
 });
-
 // GET /add leads
 server.get("/users/dashboard/add-leads", checkNotAuthenticated, (req, res) => {
     res.render("add-lead", { user: req.user.user_name, isAdmin: req.user.isadmin });
 });
-
 // GET /add customer
 server.get("/users/dashboard/add-customer/:id", checkNotAuthenticated, async (req, res) => {
     // fetch lead from the database
@@ -103,6 +116,9 @@ server.get("/users/dashboard/add-customer/:id", checkNotAuthenticated, async (re
     });
 });
 
+/**
+ * POST Routes
+ */
 // POST /login
 server.post(
     "/users/login",
@@ -145,7 +161,6 @@ server.post(
         // console.log(email, password);
     }
 );
-
 // POST /Add Leads
 server.post("/users/dashboard/add-lead", async (req, res) => {
     let { fName, sName, phone, location, gender, created_by } = req.body;
@@ -167,7 +182,6 @@ server.post("/users/dashboard/add-lead", async (req, res) => {
         res.redirect("/users/dashboard/add-leads");
     });
 });
-
 // POST /Create customer
 server.post("/users/dashboard/add-customer", async (req, res) => {
     let { fName, sName, phone, location, gender, photo, earnings, product, created_by } = req.body;
@@ -188,20 +202,6 @@ server.post("/users/dashboard/add-customer", async (req, res) => {
         res.redirect("/users/dashboard");
     });
 });
-
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect("/users/dashboard");
-    }
-    next();
-}
-
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/users/login");
-}
 
 server.listen(PORT, () => {
     console.debug(`⚡️[server]: Server is running at http://localhost:${PORT}`);
