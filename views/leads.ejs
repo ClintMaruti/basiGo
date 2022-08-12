@@ -24,30 +24,34 @@
                     </div>
                 </li>
                 <!-- Data -->
-                <ul>
-                    <% leads.forEach(function(leads) { %>
-                        <a href="/users/dashboard/add-customer/<%= leads.id %>" >
-                        <li class="leads-data">
-                            <div>
-                                <p><%= leads.firstname %></p>
-                            </div>
-                            <div>
-                                <p><%= leads.secondname %></p>
-                            </div>
-                            <div>
-                                <p><%= leads.phonenumber %></p>
-                            </div>
-                            <div>
-                                <p><%= new Date(leads.date).toDateString() %></p>
-                            </div>
-                            <div>
-                                <p><%= leads.createdby %></p>
-                            </div>
-                        </li>
-                    </a>
-                    <% }); %> 
-                   </ul>
-            </ul>
+                <% if(error) { %>
+                    <li>
+                        No leads available at the moment
+                    </li>
+                    <% } else { %>
+                        <% leads.forEach(function(leads) { %>
+                            <a href="/users/dashboard/add-customer/<%= leads.id %>" >
+                            <li class="leads-data">
+                                <div>
+                                    <p><%= leads.firstname %></p>
+                                </div>
+                                <div>
+                                    <p><%= leads.secondname %></p>
+                                </div>
+                                <div>
+                                    <p><%= leads.phonenumber %></p>
+                                </div>
+                                <div>
+                                    <p><%= new Date(leads.date).toDateString() %></p>
+                                </div>
+                                <div>
+                                    <p><%= leads.createdby %></p>
+                                </div>
+                            </li>
+                        </a>
+                        <% }); %> 
+                </ul>
+                    <% } %>
         </div>
     </form>
 </section>
