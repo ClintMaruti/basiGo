@@ -5,7 +5,7 @@
 ## Link for Project
 
 Here is the link to an already deployed version of this task: deployed to Heroku
-https://boiling-lowlands-95247.herokuapp.com/users/dashboard
+https://boiling-lowlands-95247.herokuapp.com/
 
 # Logins
 
