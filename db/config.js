@@ -16,12 +16,12 @@ const pool = new Pool({
     },
 });
 
-pool.query(sql, (err, results) => {
-    if (err) {
-        throw err;
-    }
-    console.log("🚀  Database Updated Successfully!");
-    process.exit(0);
-});
+// pool.query(sql, (err, results) => {
+//     if (err) {
+//         throw err;
+//     }
+//     console.log("🚀  Database Updated Successfully!");
+//     process.exit(0);
+// });
 
 module.exports = { pool };
