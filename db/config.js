@@ -11,6 +11,9 @@ const connectionString = process.env.DATABASE_URL;
 
 const pool = new Pool({
     connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+    ssl: {
+        rejectUnauthorized: false,
+    },
 });
 
 pool.query(sql, (err, results) => {
