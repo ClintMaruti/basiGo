@@ -27,9 +27,7 @@ https://boiling-lowlands-95247.herokuapp.com/
 
 # Answer to multiple product of interest question:
 
--   On the frontend side, I'd use the HTML <select> element to display the product of interest options and allow the user to select multiple options.
-    On the server side, I'd convert the string retrieved from the HTML element into an array, then serialize it and store in the database table,
-    on retrieving, I'd just deserialize the data and use it.
+-   On the frontend side, I'd use the HTML `<select>` element to display the product of interest options and allow the user to select multiple options. On the server side, I'd convert the string retrieved from the HTML element into an array, then serialize it and store in the database table, on retrieving, I'd just deserialize the data and use it.
 
 # How to run the app locally:
 
