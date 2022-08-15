@@ -40,7 +40,7 @@ git clone https://github.com/ClintPy/basiGo.git .
 npm install
 ```
 
--   Step 3: There's a `.envExample` file in the repository. You'll need to fill up the variables with the values of your database
+-   Step 3: There's a `.envExample` file in the repository. You'll need to fill up the variables with the values of your database then rename it to `.env`
 -   Step 4: Spin up the app by running:
 
 ```
